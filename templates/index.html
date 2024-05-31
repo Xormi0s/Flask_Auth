@@ -3,11 +3,26 @@
 {% block body %}
     <div class="container">
         <h1>Welcome</h1>
-        <form action="">
+        <form id="auth-form" action="{{url_for('login')}}" method="POST">
             <input type="text" name="username" placeholder="username" class="input-field">
-            <input type="text" name="password" placeholder="password" class="input-field">
-            <input type="submit" value="Login" class="btn btn-login">
-            <input type="button" value="Register" class="btn btn-login">
+            <input type="password" name="password" placeholder="password" class="input-field">
+            <input type="submit" value="Login" class="btn-login" onclick="setFormAction('login')">
+            <input type="button" value="Register" class="btn-logout" onclick="setFormAction('register')">
         </form>
     </div>
+
+    <script>
+        function setFormAction(action) {
+            var form = document.getElementById('auth-form');
+            if (action === 'login') {
+                form.action = "{{ url_for('login') }}";
+                form.method = "post";
+                form.submit();
+            } else if (action === 'register') {
+                form.action = "{{ url_for('register') }}";
+                form.method = "post";
+                form.submit();
+            }
+        }
+    </script>
 {% endblock %}
